@@ -1,6 +1,7 @@
 const apiKey = '055b3d12f20ab467916355aefa4d41a3';
 const cityListEl = $('#city-list');
-const cityName = JSON.parse(localStorage.getItem('cityNames'));
+const cityName = JSON.parse(localStorage.getItem('storedCities'));
+const storedCities = [];
 
 //API URLS
 const URLWeather = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + apiKey +'&units=metric';
@@ -8,20 +9,25 @@ const URLForecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city
 
 
 
+
 function recordCity(){
 const input = document.getElementById('input').value
+if (input === "") {
+    return;
+  }
 
-localStorage.setItem('cityNames', JSON.stringify(input));
-
+storedCities.push(input);
+localStorage.setItem('storedCities', JSON.stringify(storedCities));
 }
 
 
 
-for (var i = 0; i < localStorage.length; i++) {
-    const storedCities = JSON.parse(localStorage.getItem("cityNames"));
+function renderCities(){
+for (var i = 0; i < JSON.parse(localStorage.getItem('storedCities')).length; i++) {
+    const storedCities = JSON.parse(localStorage.getItem("storedCities"));
     cityListEl.append('<li>' + storedCities + '</li>');
 }
-
+}
 
 // Current Day Forecast function
 $.ajax ({
@@ -41,10 +47,14 @@ $.ajax ({
 // Displays the date
 const currentDay = dayjs().format("dddd, MMMM D");
 
-function functionDay() {
+function getDay() {
     $(".current-date").text(currentDay);
 };
-functionDay();
+
+function init(){
+    getDay();
+    renderCities();
+}
 
 $.ajax ({
     url: URLForecast,
@@ -93,3 +103,4 @@ $.ajax ({
 
     });
 
+init();
