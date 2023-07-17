@@ -1,30 +1,26 @@
 const apiKey = '055b3d12f20ab467916355aefa4d41a3';
 const cityListEl = $('#city-list');
-const cityName = JSON.parse(localStorage.getItem('storedCities'));
+const cityName = JSON.parse(localStorage.getItem('storedCities'))[0];
 const storedCities = [];
 
 //API URLS
 const URLWeather = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + apiKey +'&units=metric';
 const URLForecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + cityName + '&appid=' + apiKey +'&units=metric';
 
-
-
-
 function recordCity(){
-const input = document.getElementById('input').value
+
+const input = document.getElementById('input').value.trim();
 if (input === "") {
     return;
   }
-
 storedCities.push(input);
+input.value = "";
 localStorage.setItem('storedCities', JSON.stringify(storedCities));
 }
 
-
-
 function renderCities(){
 for (var i = 0; i < JSON.parse(localStorage.getItem('storedCities')).length; i++) {
-    const storedCities = JSON.parse(localStorage.getItem("storedCities"));
+    const storedCities = JSON.parse(localStorage.getItem('storedCities'));
     cityListEl.append('<li>' + storedCities + '</li>');
 }
 }
