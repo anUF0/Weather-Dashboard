@@ -1,6 +1,6 @@
 const apiKey = '055b3d12f20ab467916355aefa4d41a3';
 const cityListEl = $('#city-list');
-const cityName = localStorage.getItem('cityNames');
+const cityName = JSON.parse(localStorage.getItem('cityNames'));
 
 //API URLS
 const URLWeather = 'https://api.openweathermap.org/data/2.5/weather?q=' + cityName + '&appid=' + apiKey +'&units=metric';
@@ -9,11 +9,17 @@ const URLForecast = 'https://api.openweathermap.org/data/2.5/forecast?q=' + city
 
 
 function recordCity(){
-    localStorage.setItem('cityNames', document.getElementById('input').value);
+const input = document.getElementById('input').value
+
+localStorage.setItem('cityNames', JSON.stringify(input));
+
 }
 
+
+
 for (var i = 0; i < localStorage.length; i++) {
-    cityListEl.append('<li>' + localStorage.getItem('cityNames') + '</li>');
+    const storedCities = JSON.parse(localStorage.getItem("cityNames"));
+    cityListEl.append('<li>' + storedCities + '</li>');
 }
 
 
