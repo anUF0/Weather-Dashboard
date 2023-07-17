@@ -25,14 +25,13 @@
             <aside id="search-section" class="col-md-4">
                     <div class="card-body">
                         <h5>Search for a city:</h5>
-                            <form class="form-inline">
-                                <input type="search" placeholder="Enter city name" class="form-control mr-sm-2 input" />
-                                <button class="btn btn-primary my-2 my-sm-0 search search-button" type="submit">
-                                    <i class="fas fa-search-location"></i>
+                            <form class="form-inline" >
+                                <input id="input" type="text" placeholder="Enter city name" class="form-control mr-sm-2" name="city-form"/>
+                                <button onclick="recordCity()" class="btn btn-primary my-2 my-sm-0 search">
+                                    <i  class="fas fa-search-location"></i>
                                 </button>
                             </form>
-                
-                        <ul id="city-list" class=""></ul>
+                        <ul id="city-list" class="bg-secondary-subtle"></ul>
 
                     </div>
             </aside>
